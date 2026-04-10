@@ -14,6 +14,7 @@ import logsRoutes from './routes/logs.js';
 import filesRoutes from './routes/files.js';
 import networkRoutes from './routes/network.js';
 import systemRoutes from './routes/system.js';
+import pm2Routes from './routes/pm2.js';
 
 dotenv.config();
 
@@ -62,17 +63,18 @@ app.use('/logs', logsRoutes);
 app.use('/files', filesRoutes);
 app.use('/network', networkRoutes);
 app.use('/system', systemRoutes);
+app.use('/pm2', pm2Routes);
 
 // Mock WebSocket implementation for Realtime Logs
 wss.on('connection', (ws) => {
   console.log('Client connected for realtime logs');
-  
+
   // Example of sending simulated log stream periodically
   const logInterval = setInterval(() => {
-    ws.send(JSON.stringify({ 
-      timestamp: new Date().toISOString(), 
-      level: 'info', 
-      message: 'System running normally' 
+    ws.send(JSON.stringify({
+      timestamp: new Date().toISOString(),
+      level: 'info',
+      message: 'System running normally'
     }));
   }, 5000);
 
